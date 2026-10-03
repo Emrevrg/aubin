@@ -1,0 +1,88 @@
+{
+ "runs/m2w31\\m2w31_domain.json": {
+  "split": "test_domain",
+  "model": "google/gemma-4-31B-it",
+  "adapter": "emrevrg/AUBIN-31B",
+  "protocol": "MindAct multi-choice (groups of 5 + None, iterative), top-50 by official ranker",
+  "summary": {
+   "n": 200,
+   "element_accuracy": 0.54,
+   "operation_f1": 0.8646,
+   "step_success_rate": 0.485,
+   "pos_in_topk_rate": 0.9,
+   "minutes": 96.5
+  },
+  "train": null
+ },
+ "runs/m2w31\\m2w31_website.json": {
+  "split": "test_website",
+  "model": "google/gemma-4-31B-it",
+  "adapter": "emrevrg/AUBIN-31B",
+  "protocol": "MindAct multi-choice (groups of 5 + None, iterative), top-50 by official ranker",
+  "summary": {
+   "n": 200,
+   "element_accuracy": 0.41,
+   "operation_f1": 0.8202,
+   "step_success_rate": 0.335,
+   "pos_in_topk_rate": 0.905,
+   "minutes": 108.7
+  },
+  "train": null
+ },
+ "runs/sat/aubin-sat-12ef\\m2wa_test_domain.json": {
+  "split": "test_domain",
+  "model": "google/gemma-4-12B-it",
+  "adapter": "hf:emrevrg/AUBIN-12B",
+  "protocol": "MindAct multi-choice (groups of 5 + None, iterative), top-50 by official ranker",
+  "summary": {
+   "n": 200,
+   "element_accuracy": 0.475,
+   "operation_f1": 0.8767,
+   "step_success_rate": 0.45,
+   "pos_in_topk_rate": 0.9,
+   "minutes": 228.6
+  },
+  "train": {
+   "steps": 1200,
+   "items": 7995,
+   "lr": 3e-05,
+   "bs": 4,
+   "minutes": 185.3,
+   "best_dev": [
+    0.8133333333333334,
+    1000
+   ],
+   "adapter_dir": "/kaggle/working/lora_m2wa"
+  }
+ },
+ "runs/sat/aubin-sat-12ef\\m2wa_test_task.json": {
+  "split": "test_task",
+  "model": "google/gemma-4-12B-it",
+  "adapter": "/kaggle/working/lora_m2wa",
+  "protocol": "MindAct multi-choice (groups of 5 + None, iterative), top-50 by official ranker",
+  "summary": {
+   "n": 200,
+   "element_accuracy": 0.48,
+   "operation_f1": 0.8145,
+   "step_success_rate": 0.4,
+   "pos_in_topk_rate": 0.945,
+   "minutes": 35.6
+  },
+  "train": null
+ },
+ "runs/sat/aubin-sat-12ef\\m2wa_test_website.json": {
+  "split": "test_website",
+  "model": "google/gemma-4-12B-it",
+  "adapter": "/kaggle/working/lora_m2wa",
+  "protocol": "MindAct multi-choice (groups of 5 + None, iterative), top-50 by official ranker",
+  "summary": {
+   "n": 200,
+   "element_accuracy": 0.375,
+   "operation_f1": 0.8162,
+   "step_success_rate": 0.32,
+   "pos_in_topk_rate": 0.905,
+   "minutes": 34.6
+  },
+  "train": null
+ }
+}

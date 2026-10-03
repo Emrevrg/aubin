@@ -1,0 +1,12 @@
+{
+ "n": 2000,
+ "AUBIN-12B zero-shot (T=1)": 0.729,
+ "NIVEN-Agac skill": 0.771,
+ "AUBIN-Learn (AUBIN T3.2 + NIVEN-Agac, equal, pre-specified)": 0.7755,
+ "reference": {
+  "meraGPT sd-1": 0.768,
+  "Laya": 0.7665,
+  "TypeSafe Jev 1.13.0": 0.727,
+  "NIVEN 26 Sep": 0.773
+ }
+}
