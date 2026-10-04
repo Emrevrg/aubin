@@ -8,7 +8,7 @@ bölümlerinden gelen örnekler dışlanır. Hedef = öğe kutusunun merkezi. Lo
 import argparse, json, math, os, random, time
 import torch
 
-from screenspot_eval import PROMPT
+from screenspot_eval import PROMPT, bnb4, vision_fp32, fp16_clamp
 
 EXCL = ("screenspot", "agent_studio", "mind2web_test")
 
@@ -42,7 +42,9 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-4); ap.add_argument("--accum", type=int, default=4)
     ap.add_argument("--r", type=int, default=16); ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default="ss_lora"); ap.add_argument("--work", default=""); ap.add_argument("--init", default="")
-    ap.add_argument("--skip", type=int, default=0)     # akıştaki ilk N uygun örneği atla (önceki turda görülenler)
+    ap.add_argument("--fp32vis", action="store_true")   # 12B: görsel kule fp32 (fp16 taşması → NaN kayıp)
+    ap.add_argument("--clamp", action="store_true")     # 12B: dil modeli fp16 taşma kırpması
+    ap.add_argument("--skip", type=int, default=0)    # akıştaki ilk N uygun örneği atla (önceki turda görülenler)
     a = ap.parse_args()
     random.seed(a.seed); torch.manual_seed(a.seed)
     from transformers import AutoProcessor, AutoModelForImageTextToText, BitsAndBytesConfig
@@ -50,8 +52,11 @@ def main():
     proc = AutoProcessor.from_pretrained(a.model)
     m = AutoModelForImageTextToText.from_pretrained(
         a.model, device_map={"": 0}, dtype=torch.float16,
-        quantization_config=BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4", bnb_4bit_compute_dtype=torch.float16,
-                                               bnb_4bit_use_double_quant=True))
+        quantization_config=bnb4(a.fp32vis))
+    if a.fp32vis:
+        vision_fp32(m)
+    if a.clamp:
+        fp16_clamp(m)
     m.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False}); m.enable_input_require_grads()
     tm = r".*language_model.*\.(q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)"
     if a.init:                                         # önceki turun adaptöründen devam (yeni örneklerle)
@@ -78,13 +83,15 @@ def main():
         lab = full["input_ids"].clone(); lab[:, :plen] = -100
         with torch.autocast("cuda", dtype=torch.float16):
             loss = m(**full, labels=lab).loss / a.accum
+        if seen < 40 and not math.isfinite(loss.item()):
+            raise SystemExit(f"NaN kayıp: örnek {seen}")
         scaler.scale(loss).backward(); run += loss.item() * a.accum; seen += 1; srcs[src] = srcs.get(src, 0) + 1
         if seen % a.accum == 0:
             scaler.unscale_(opt); torch.nn.utils.clip_grad_norm_(params, 1.0)
             scaler.step(opt); scaler.update(); opt.zero_grad(set_to_none=True); sched.step()
         if seen % 200 == 0:
             print({"seen": seen, "loss": round(run / 200, 4), "min": round((time.time() - t0) / 60, 1)}, flush=True); run = 0.0
-        if seen % 2000 == 0:
+        if seen % 500 == 0:
             m.save_pretrained(a.out)
     m.save_pretrained(a.out)
     json.dump({"model": a.model, "n": seen, "lr": a.lr, "accum": a.accum, "r": a.r, "sources": srcs, "excluded": EXCL,
