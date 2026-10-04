@@ -3,7 +3,7 @@
 <a href="https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_family_en.mp4"><img src="media/aubin_banner.webp" alt="AUBIN by Norovox: watch the film" width="100%"></a>
 
 ### Open, calibrated decision models that see, act and learn.
-**Typed decisions · computer use · real-time control · self-learning**, built on Gemma 4 by a 17-year-old in Türkiye.
+**Typed decisions · computer use · real-time control · self-learning**, open weights on Gemma 4.
 
 [🎬 Watch the 80-second film](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_family_en.mp4) · [Türkçe](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_family_tr.mp4) · [Models on Hugging Face](https://huggingface.co/collections/emrevrg/aubin-by-norovox-6abbd944e3a7b80179422507) · [Support ❤](SUPPORT.md)
 
@@ -17,10 +17,10 @@
 | Jev's own published split | **8 of 8 metrics** | accuracy · Brier · ECE · NLL, both splits |
 | Kev suites, sources Kev never saw | **89.8** | Kev-27B 89.6 |
 | Kev suites, Kev's own training sources | 87.08 · NLL 0.43 | Kev-9B 87.4 · Kev-27B 87.0 · Kev-4B 86.5 |
-| Visual computer use (ScreenSpot) | **67.7** | SeeClick 53.4 · CogAgent 47.4 · UI-TARS-7B 89.5 |
+| Visual computer use (ScreenSpot) | **69.3** | SeeClick 53.4 · CogAgent 47.4 · UI-TARS-7B 89.5 |
 | Web agent (Mind2Web, cross-domain step success) | **43.5** | MindAct-XL 39.6 · GPT-4 26.4 |
 | Real-time control (100 unseen episodes) | **92% · 0 lava deaths** | best rule + same shield 89% |
-| FPS play with in-game self-learning (ViZDoom) | **18.3 kills / episode** | same model without learning 15.1 |
+| FPS play (ViZDoom), learning while it plays | **17.3 kills / episode** | same model without learning 15.6 · scripted rule 18.8 (30 episodes; gain not yet significant) |
 
 <sub>Every row is measured. Protocols, sample sizes and every variant tried are in [`reports/AUBIN_RESULTS_2026-10-03.md`](reports/AUBIN_RESULTS_2026-10-03.md). Where AUBIN is behind (Kev-9B on Kev's training sources; the strongest dedicated GUI-grounding models), the report says so.</sub>
 

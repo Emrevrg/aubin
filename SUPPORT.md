@@ -7,7 +7,7 @@ When I started this project I had no team and no budget: just one computer, free
 Even so, AUBIN has measured results today:
 - **#1** on the typed-decisions benchmark, ahead of Laya, meraGPT and Jev.
 - Ahead of Jev on **all 8 metrics** of Jev's own published split.
-- **67.7%** on ScreenSpot for visual computer use, and an FPS agent that learns while it plays.
+- **69.3%** on ScreenSpot for visual computer use, and an FPS agent that learns while it plays.
 
 Every number comes with code and result files, so anyone can reproduce it.
 
@@ -24,7 +24,7 @@ Bu projeye başladığımda elimde ne bir ekip ne bir bütçe vardı; sadece bir
 Buna rağmen AUBIN bugün ölçülmüş sonuçlara sahip:
 - Tipli karar kıyaslamasında **birinci**; Laya, meraGPT ve Jev'in önünde.
 - Jev'in kendi yayımladığı kümede **sekiz ölçütün sekizinde** önde.
-- Görsel bilgisayar kullanımında (ScreenSpot) **%67,7**; oynarken öğrenen bir FPS ajanı.
+- Görsel bilgisayar kullanımında (ScreenSpot) **%69,3**; oynarken öğrenen bir FPS ajanı.
 
 Her sayının kodu ve sonuç dosyası açık, herkes kendisi tekrar üretebilir.
 
