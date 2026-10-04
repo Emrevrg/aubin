@@ -9,7 +9,7 @@
 
 <sub>Film music: “Aphelion” by Scott Buckley, released under CC BY 4.0 · scottbuckley.com.au</sub>
 
-**⭐ Star this repo and ♥ like the models on Hugging Face.** It is the biggest help for an independent open model. Goal: pass Laya's 5,115 likes.
+**⭐ Star this repo and ♥ like the models on Hugging Face.** It is the biggest help for an independent open model.
 
 <img src="https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/en_xresults.jpg" alt="AUBIN measured results" width="49%"> <img src="https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/en_xcompute.jpg" alt="AUBIN computer use" width="49%">
 
