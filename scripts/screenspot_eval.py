@@ -56,7 +56,7 @@ def main():
         msgs = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": PROMPT.format(ins=ex["instruction"])}]}]
         inp = proc.apply_chat_template(msgs, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors="pt").to(m.device)
         t1 = time.time()
-        with torch.no_grad():
+        with torch.no_grad(), torch.autocast("cuda", dtype=torch.float16):   # 12B: fp32 kalan görsel katmanlar + fp16 girdi
             try:
                 g = m.generate(**inp, max_new_tokens=16, do_sample=False)
             except RuntimeError as e:                      # bazı görsel kuleler fp32 kalır (12B): piksel girdisini fp32 yap
