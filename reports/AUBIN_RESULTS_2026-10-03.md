@@ -136,7 +136,8 @@ Code is in `code/`. Every number above can be reproduced from the scripts and ru
 
 | model | accuracy |
 |---|---|
-| **AUBIN-E4B-Screen** (8k leak-free wave-ui examples) | **67.7** |
+| **AUBIN-E4B-Screen**, round 2 (16k leak-free wave-ui examples) | **69.3** |
+| AUBIN-E4B-Screen, round 1 (8k examples) | 67.7 |
 | AUBIN-E4B zero-shot | 48.5 |
 | SeeClick | 53.4 |
 | CogAgent | 47.4 |
@@ -171,7 +172,8 @@ Code is in `code/`. Every number above can be reproduced from the scripts and ru
 - A bug in the memory recall made the first self-learning runs collapse: with only a handful of stored cases, an unrelated case voted on every situation.
 - This is fixed with a similarity threshold (min_sim) in ubin/learn.py.
 - **Fixed run, same 12 seeds:** AUBIN-12B + AUBIN-Learn scores **18.3 kills per episode (max 25)**, against **15.1** for the same model without learning: +3.2, or +21%. The memory stores moves that made progress, keyed by game situation, and persists across episodes.
-- Per-episode differences range from −12 to +15, so 12 episodes are not yet statistically conclusive. A longer run is planned.
+- Per-episode differences range from −12 to +15, so 12 episodes were not conclusive.
+- **30-episode confirmation, same seeds:** with learning **17.3**, without learning **15.6** (+1.7, +11%); scripted rule 18.8; random 1.3. The paired difference is not yet statistically significant (t ≈ 1.15). The 12-episode figure overstated the gain; the 30-episode figure is the one to cite.
 
 ### E. Self-acquired skills (product)
 
@@ -183,3 +185,18 @@ AubinLearning.acquire_skill(qid, examples) lets the model add a skill to itself:
 Unit test:
 - **Model that does not know the task:** the skill is enabled, and self-test accuracy goes from 34% to 100%.
 - **Model that already knows the task:** the skill stays off, and nothing changes.
+
+## Update, 4 October 2026: every ability in both 12B and 31B (AUBIN Omni)
+
+| ability | 12B | 31B |
+|---|---|---|
+| typed, calibrated decisions | AUBIN-12B | AUBIN-31B |
+| click on screenshots | **ScreenSpot 66.7** (full set, 1,272; text 76.9, icon 54.3): the Gemma-4-12B base itself with fp32 compute, no AUBIN adapter | E4B-Screen companion (69.3) |
+| web agent step | AUBIN-12B-Web, Mind2Web cross-domain 43.5 | **AUBIN-31B-Web, Mind2Web cross-domain 45.0** (element accuracy 49.0, operation F1 0.890; 200 steps, dev-selected step 300 of 420). Weights are uploaded with the public release (private storage limit); until then Omni uses the E4B-Web companion |
+| real-time control and games | AUBIN-12B-Control, 92% · 0 lava | E4B-Control companion |
+| self-learning and new skills | AUBIN-Learn | AUBIN-Learn |
+
+Honest notes:
+- **12B screen in fp16 does not work.** With image tokens, the 12B language model overflows in fp16. Every answer came out empty (0.0), and LoRA training gave NaN loss from the first example. Clamping the fp16 activations did not help: the model repeated tokens. Running the vision tower in fp32 alone was not enough. Only fp32 compute for the language model works, so the 12B screen ability runs that way. AUBIN fine-tuning of the 12B screen ability (in fp32) is the next training run.
+- **Companion models** are separate, lazily loaded E4B adapters, so one AubinOmni object offers every ability. They are listed in omni.json and by omni.companions.
+- Code: ubin/omni.py (base mode and companions), screenspot_eval.py (--fp32lm, --shard), inalize_omni.py.
