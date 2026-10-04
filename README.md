@@ -1,11 +1,13 @@
 <div align="center">
 
-<a href="https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_keynote_phonk_en.mp4"><img src="media/aubin_banner.webp" alt="AUBIN by Norovox: watch the film" width="100%"></a>
+<a href="https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_film_en.mp4"><img src="media/aubin_banner.webp" alt="AUBIN by Norovox: watch the film" width="100%"></a>
 
 ### Open, calibrated decision models that see, act and learn.
 **Typed decisions · computer use · real-time control · self-learning**, open weights on Gemma 4.
 
-[🎬 Watch the 71-second film](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_keynote_phonk_en.mp4) · [Türkçe](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_keynote_phonk_tr.mp4) · [📱 30-second reel](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_reel_en.mp4) · [Models on Hugging Face](https://huggingface.co/collections/emrevrg/aubin-by-norovox-6abbd944e3a7b80179422507) · [Support ❤](SUPPORT.md)
+[🎬 Watch the 80-second film](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_film_en.mp4) · [Türkçe](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_film_tr.mp4) · [📱 38-second reel](https://huggingface.co/emrevrg/AUBIN-12B/resolve/main/media/aubin_reel_en.mp4) · [Models on Hugging Face](https://huggingface.co/collections/emrevrg/aubin-by-norovox-6abbd944e3a7b80179422507) · [Support ❤](SUPPORT.md)
+
+<sub>Film music: “Aphelion” by Scott Buckley, released under CC BY 4.0 · scottbuckley.com.au</sub>
 
 **⭐ Star this repo and ♥ like the models on Hugging Face.** It is the biggest help for an independent open model. Goal: pass Laya's 5,115 likes.
 
