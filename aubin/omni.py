@@ -109,7 +109,7 @@ class AubinOmni:
         self.use("screen")
         msgs = [{"role": "user", "content": [{"type": "image", "image": image}, {"type": "text", "text": CLICK_PROMPT.format(ins=instruction)}]}]
         inp = self.proc.apply_chat_template(msgs, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors="pt").to(self.model.device)
-        with torch.no_grad():
+        with torch.no_grad(), torch.autocast("cuda", dtype=torch.float16, enabled=torch.cuda.is_available()):
             g = self.model.generate(**inp, max_new_tokens=max_new_tokens, do_sample=False)
         txt = self.proc.decode(g[0, inp["input_ids"].shape[1]:], skip_special_tokens=True)
         m = re.findall(r"(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)", txt)
